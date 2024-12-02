@@ -117,4 +117,22 @@ FROM emp_fact emp
 JOIN department dep
 ON dep.department_id = emp.department_id
 GROUP BY dep.department
-HAVING count(dep.department) > 2;
+HAVING count(dep.department) > 3;
+
+-- iv. Find out the employees who earn greater than the average salary for their department.
+
+SELECT 
+    e1.employee_id,
+    e1.emp_name,
+    e1.salary,
+    e1.department_id
+FROM emp_fact as e1 
+WHERE e1.salary > (SELECT
+                    AVG(e2.salary)
+                FROM emp_fact as e2
+                WHERE e2.department_id = e1.department_id);
+
+SELECT
+    AVG(salary)
+FROM emp_fact
+WHERE department_id = 30
