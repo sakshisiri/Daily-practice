@@ -1,0 +1,36 @@
+-- Day 04/100 days challenge
+
+
+CREATE TABLE employees (
+    Emp_ID INT PRIMARY KEY,
+    Emp_Name VARCHAR(50),
+    Manager_ID INT
+);
+
+
+INSERT INTO employees (Emp_ID, Emp_Name, Manager_ID) VALUES
+(1, 'John', 3),
+(2, 'Philip', 3),
+(3, 'Keith', 7),
+(4, 'Quinton', 6),
+(5, 'Steve', 7),
+(6, 'Harry', 5),
+(7, 'Gill', 8),
+(8, 'Rock', NULL);
+
+
+-- 2.2 Given table employees, write a 
+--query to display employee names along with manager names
+
+SELECT
+	*
+FROM employees;
+
+SELECT
+	e.emp_id as EMP_ID,
+	e.emp_name as EMP_NAME,
+	e.manager_id as MANAGER_ID,
+	m.emp_name as MANAGER
+FROM employees e
+FULL OUTER JOIN employees m
+ON m.emp_id = e.manager_id;
