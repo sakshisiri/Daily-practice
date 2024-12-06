@@ -1,0 +1,21 @@
+WITH salary_range
+AS
+(
+SELECT 
+    employee_id,
+    name,
+    year,
+    salary,
+    LAG(salary) OVER(PARTITION BY employee_id ORDER BY year) as prev_year_salary
+FROM employee_salary
+)
+SELECT 
+    employee_id,
+    name
+    -- COUNT(*) as no_year_salary_raise
+    -- salary,
+    -- prev_year_salary
+FROM  salary_range
+WHERE salary > prev_year_salary
+GROUP BY employee_id, name
+HAVING COUNT(*) >= 3
